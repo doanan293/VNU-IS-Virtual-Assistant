@@ -1,0 +1,4 @@
+.venv
+Model
+__pycache__
+Data/DB/ChunksAndEmbedding.csv

@@ -1,0 +1,43 @@
+# numpy==1.22.0
+numpy==1.26.4
+pandas==1.5.3
+# pandas==2.0.3
+wheel
+ninja
+selenium==4.26.1
+sentence-transformers==3.1.1
+fastapi[standard]
+uvicorn[standard]
+pyodbc
+python-dotenv
+healthcheck-python
+datasets==3.0.1
+accelerate
+docx
+underthesea==6.8.4
+pydub==0.25.1
+deepspeed
+SQLAlchemy
+transformers==4.45.1
+pert
+bitsandbytes
+trl==0.11.4
+dill==0.3.8
+fsspec==2024.6.1
+networkx==2.8.8
+openpyxl 
+smbprotocol
+-e git+https://github.com/thinhlpg/TTS.git@ff217b3f27b294de194cc59c5119d1e08b06413c#egg=TTS
+-e git+https://github.com/thgdnn/vietnamese-text-normalization-vcs.git#egg=vi_cleaner
+#--------------
+streamlit
+audio_recorder_streamlit
+streamlit_float
+pyngrok
+#-----------------------------------------------------------
+# !pip install requests
+# !pip install beautifulsoup4
+# pip install google
+
+# pip install -r requirements.txt --use-deprecated=legacy-resolver
+# pip install flash-attn --no-build-isolation
