@@ -1,7 +1,5 @@
-# numpy==1.22.0
 numpy==1.26.4
 pandas==1.5.3
-# pandas==2.0.3
 wheel
 ninja
 selenium==4.26.1
@@ -35,9 +33,5 @@ audio_recorder_streamlit
 streamlit_float
 pyngrok
 #-----------------------------------------------------------
-# !pip install requests
-# !pip install beautifulsoup4
-# pip install google
-
 # pip install -r requirements.txt --use-deprecated=legacy-resolver
 # pip install flash-attn --no-build-isolation

@@ -700,51 +700,51 @@ Trả lời:"""
         tokenizer, skip_prompt=True, skip_special_tokens=True
     )
 
-    # model_inputs = tokenizer([text], return_tensors="pt").to(device)
-
     inputs = tokenizer(text, return_tensors="pt").to("cuda")
 
-    # thread = Thread(
-    #     target=model.generate,
-    #     kwargs={
-    #         "input_ids": inputs["input_ids"],
-    #         # "streamer": streamer,
-    #         "do_sample": True,
-    #         "max_new_tokens": 1024,
-    #         "temperature": 0.01,
-    #         # "top_k": 40,
-    #         # "top_p": 0.95,
-    #         # "repetition_penalty": 1.05,
-    #     },
-    # )
-    # thread.start()  # now start the thread
-
-    # # for this example we'll both print out the new text and save it to a file
-    # # -----------------------------
-    # try:
-    #     # Yield each piece of generated text as it's available
-    #     for new_text in streamer:
-    #         yield new_text + ""
-    #     # for new_text in streamer:
-    #     #     new_text = new_text.replace("\n", "\\n")
-    #     #     yield "data: " + new_text + "\n\n"
-    # finally:
-    #     # Ensure the thread is properly joined even if the generator is not fully consumed
-    #     logging.info("Done ask query")
-    #     thread.join()
-    generated_ids = model.generate(
-        inputs.input_ids,
-        do_sample=True,
-        temperature=0.01,
-        top_k=40,
-        top_p=0.95,
-        max_new_tokens=1024,
-        repetition_penalty=1.05,
-        streamer=streamer,
+    thread = Thread(
+        target=model.generate,
+        kwargs={
+            "input_ids": inputs["input_ids"],
+            "streamer": streamer,
+            "do_sample": True,
+            "max_new_tokens": 1024,
+            "temperature": 0.01,
+            "top_k": 40,
+            "top_p": 0.95,
+            "repetition_penalty": 1.05,
+        },
     )
-    generated_ids = [
-        output_ids[len(input_ids) :]
-        for input_ids, output_ids in zip(inputs.input_ids, generated_ids)
-    ]
-    response = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
-    return response
+    thread.start()  # now start the thread
+
+    # for this example we'll both print out the new text and save it to a file
+    # -----------------------------
+    try:
+        # Yield each piece of generated text as it's available
+        for new_text in streamer:
+            yield new_text + ""
+        # for new_text in streamer:
+        #     new_text = new_text.replace("\n", "\\n")
+        #     yield "data: " + new_text + "\n\n"
+    finally:
+        # Ensure the thread is properly joined even if the generator is not fully consumed
+        logging.info("Done ask query")
+        thread.join()
+
+    # -----------------for evaluation--------------------
+    # generated_ids = model.generate(
+    #     inputs.input_ids,
+    #     do_sample=True,
+    #     temperature=0.01,
+    #     top_k=40,
+    #     top_p=0.95,
+    #     max_new_tokens=1024,
+    #     repetition_penalty=1.05,
+    #     streamer=streamer,
+    # )
+    # generated_ids = [
+    #     output_ids[len(input_ids) :]
+    #     for input_ids, output_ids in zip(inputs.input_ids, generated_ids)
+    # ]
+    # response = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
+    # return response
